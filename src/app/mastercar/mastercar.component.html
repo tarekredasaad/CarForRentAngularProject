@@ -1,0 +1,153 @@
+<header class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Car's Orders Data</h1>
+      <p class="lead">Lorem ipsum dolor sit amet,
+         consectetur adipiscing elit.</p>
+    </div>
+  </header>
+<div class="col-md-4 col-sm-12 ">
+    <div >
+      <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" >
+        <!-- {{order | json}} -->
+          <div class="form-group">
+            <label for="customerName">customer Name</label>  
+            <!-- [(ngModel)]="order.customerName"  -->
+            <input type="text" id="customerName" class="form-control"
+            formControlName="customerName"  
+            placeholder="Enter client name"
+            [class.is-invalid]="customerName?.invalid&&customerName?.touched"
+            >
+            <div *ngIf="customerName?.invalid &&
+            customerName?.touched" class="invalid-feedback">
+            <small *ngIf="customerName?.errors?.['required']" 
+            class="text-danger">Client Name is required
+          </small>
+          <small *ngIf="customerName?.errors?.['minlength']" 
+          class="text-danger">User name at least 5 characters</small>
+          <small *ngIf="customerName?.errors?.['maxlength']"
+          class="text-danger">User name contains maximum
+          15 characters</small>
+          
+          Please enter a valid client name.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Nationality">Customer Nationality</label>
+        <!-- [(ngModel)]="order.customerNationality" -->
+        <select id="Nationality" class="form-control"
+        formControlName="Nationality" required
+        >
+        <option value="">-- Select Nationality --</option>
+        <option *ngFor="let nation of nationalities"
+        [value]="nation">{{ nation }} 
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="License">Driving License</label>
+    <!-- [(ngModel)]="order.drivingLicense" -->
+    <input type="text" id="License" 
+    class="form-control"
+    formControlName="drivingLicense"
+    [class.is-invalid]="drivingLicense?.invalid&&drivingLicense?.touched"
+    >
+    <div *ngIf="drivingLicense?.invalid &&
+    drivingLicense?.touched" class="invalid-feedback">
+    <small *ngIf="drivingLicense?.errors?.['required']" 
+    class="text-danger">drivingLicense is required
+  </small>
+  <small *ngIf="drivingLicense?.errors?.['minlength']" 
+  class="text-danger">drivingLicense at least 5 characters</small>
+  <small *ngIf="drivingLicense?.errors?.['maxlength']"
+  class="text-danger">drivingLicense contains maximum
+  15 characters</small>
+  
+  Please enter a valid drivingLicense.
+</div>
+
+</div>
+<div class="form-group">
+  <label for="Payment">Payment</label>
+  <!-- [(ngModel)]="order.advancedPayment" -->
+  <input type="text" id="Payment" 
+  class="form-control" 
+  formControlName="advancedPayment"
+  placeholder="Enter Payment" 
+  [class.is-invalid]="advancedPayment?.invalid&&advancedPayment?.touched"
+  
+  > 
+  <div *ngIf="advancedPayment?.invalid &&
+  advancedPayment?.touched" class="invalid-feedback">
+  <small *ngIf="advancedPayment?.errors?.['required']" 
+  class="text-danger">advancedPayment is required
+</small>
+<small *ngIf="advancedPayment?.errors?.['minlength']" 
+class="text-danger">advancedPayment at least 5 characters</small>
+<small *ngIf="advancedPayment?.errors?.['maxlength']"
+class="text-danger">advancedPayment contains maximum
+15 characters</small>
+
+Please enter a valid advancedPayment.
+</div>
+</div>
+
+<div class="form-group">
+  <label for="Date">Transaction Date</label>
+  <!-- [(ngModel)]="order.transactionDate" -->
+  <input type="date" id="Date" class="form-control" 
+  formControlName="transactionDate"
+            required
+                    >
+                    <!-- <mat-form-field>
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field> -->
+              
+          </div>
+          <button type="submit" [disabled]="customerForm.invalid"
+           class="btn btn-primary">Rent </button>
+        </form>
+        <button (click)="GetData()">Send </button>
+        <app-detail [try]="bad"></app-detail>
+  </div>
+  </div>
+  <div class=" text-center mt-5 mb-5">
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+      <label for="customerName">Customer Name:</label>
+      <input
+        type="text"
+        id="customerName"
+        formControlName="customerName"
+        />
+        <!-- [class.is-invalid]="customerName?.invalid&&customerName?.touched" -->
+      <small *ngIf="customerName?.errors?.['required']" 
+      class="text-danger">Client Name is required
+    </small>
+    <small *ngIf="customerName?.errors?.['minlength']" 
+    class="text-danger">User name at least 5 characters</small>
+      <!-- <div
+        *ngIf="
+          customerForm.get('customerName').hasError('required') &&
+          customerForm.get('customerName').touched
+        "
+      >
+        Customer Name is required.
+      </div>
+      <div
+        *ngIf="
+          customerForm.get('customerName').hasError('minlength') &&
+          customerForm.get('customerName').touched
+        "
+      >
+        Customer Name must be at least 4 characters long.
+      </div> -->
+    
+      <!-- Other form controls and submit button can be added here -->
+    </form>
+    
+  </div>
+  <div>
+    <br>
+  </div>
+

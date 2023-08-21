@@ -1,0 +1,72 @@
+<header class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Car's Detail Data</h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div *ngFor="let car of cars; let i = index" class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.type }}</h5>
+          <p class="card-text">Year: {{ car.year }}</p>
+          <p class="card-text">Power: {{ car.power }}</p>
+          <p class="card-text">Brand: {{ car.model.brand.name }}</p>
+        
+          
+        </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="selected{{ i }}" [(ngModel)]="car.selected">
+            <label class="form-check-label" for="selected{{ i }}">Selected</label>
+          </div>
+          
+          <button class="btn btn-danger mt-2" (click)="remove(i)">Remove</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div *ngFor="let car of pagedCars; let i = index" class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.type }}</h5>
+          <div>
+
+            <p class="card-text">Year: {{ car.year }}</p>
+            <p class="card-text">Power: {{ car.power }}</p>
+            <p class="card-text">Brand: {{ car.model.brand.name }}</p>
+          </div>
+          
+        </div>
+          <div class="form-group">
+            <label for="quantity{{ i }}">Quantity</label>
+            <input type="number" id="quantity{{ i }}" class="form-control" [(ngModel)]="car.quantity">
+          </div>
+          
+          <div class="form-group">
+            <label for="rentFrom{{ i }}">Rent from</label>
+            <input type="date" id="rentFrom{{ i }}" class="form-control" [(ngModel)]="car.rentFrom">
+          </div>
+          
+          <div class="form-group">
+            <label for="rentTo{{ i }}">Rent to</label>
+            <input type="date" id="rentTo{{ i }}" class="form-control" [(ngModel)]="car.rentTo">
+          </div>
+          
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="selected{{ i }}" [(ngModel)]="car.selected">
+            <label class="form-check-label" for="selected{{ i }}">Selected</label>
+          </div>
+          
+          <button class="btn btn-danger mt-2" (click)="remove(i)">Remove</button>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
+

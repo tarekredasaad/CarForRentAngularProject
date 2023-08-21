@@ -1,0 +1,49 @@
+<!-- Header -->
+<div class="jumbotron text-center">
+  <h1>Car Market Data</h1>
+</div>
+
+<!-- Stock Data Table -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <span class="float-left pr-3">Filter </span>
+        <select name="brand" id="brand" (change)="SelectBrand()" [(ngModel)]="brandId">
+          <option value=""> --- </option>
+          <option *ngFor="let car of Carsfilter" [value]="car.model.brand.id">{{ car.model.brand.name }}</option>
+        </select>
+        <select name="name" id="name" (change)="SelectName()" [(ngModel)]="name">
+          <option value=""> --- </option>
+          <option *ngFor="let car of Carsfilter" [value]="car.model.name">{{ car.model.name }}</option>
+        </select>
+        <select name="year" id="year" (change)="SelectYear()" [(ngModel)]="year">
+          <option value=""> --- </option>
+          <option *ngFor="let car of Carsfilter" [value]="car.year">{{ car.year }}</option>
+        </select>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div *ngFor="let car of Cars; let i = index" class="col-md-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="card-title">{{ car.model.type }}</h5>
+                <p class="card-text">{{ car.power }}</p>
+                <div class="d-flex justify-content-between">
+                  <input type="checkbox" id="{{ i }}" class="float-left" [(ngModel)]="car.isDeleted" (click)="push(i)">
+                  <button class="btn btn-info" (click)="buy(i)">Buy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center">
+  <p>Copyright © Stock Market Data</p>
+</footer>
