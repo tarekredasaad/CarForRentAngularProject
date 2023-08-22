@@ -25,18 +25,20 @@
 
       <div class="container">
         <div class="row">
-          <div *ngFor="let car of Cars; let i = index" class="col-md-12">
+          <div *ngFor="let car of Cars; let i = index" class="col-md-6 mb-3">
             <div class="card mb-4">
               <div class="card-body">
                 <h5 class="card-title">{{ car.model.type }}</h5>
                 <p class="card-text">{{ car.power }}</p>
                 <div class="d-flex justify-content-between">
-                  <input type="checkbox" id="{{ i }}" class="float-left" [(ngModel)]="car.isDeleted" (click)="push(i)">
-                  <button class="btn btn-info" (click)="buy(i)">Buy</button>
+                  <input type="checkbox" id="{{ i }}" class="float-left"
+                   [(ngModel)]="car.isDeleted" >
+                  <!-- <button class="btn btn-info" (click)="buy(i)">Buy</button> (click)="push(i)" -->
                 </div>
               </div>
             </div>
           </div>
+          <button class=" btn btn-info" (click)="PushSelectedRecords()">Buy</button>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { Component , Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap ,Router} from '@angular/router';
 import { Order } from 'src/app/Models/Order';
 import { CarDTO } from '../Models/CarDTO';
 import { CarService } from '../Services/car.service';
@@ -13,7 +13,8 @@ import { CarService } from '../Services/car.service';
 export class DetailcarComponent implements OnInit {
   item:any
   constructor(private fb: FormBuilder,private CarServices:CarService
-    ,private activatedRoute:ActivatedRoute){
+    ,private activatedRoute:ActivatedRoute,
+    private Router:Router){
 
     
 
@@ -51,30 +52,17 @@ export class DetailcarComponent implements OnInit {
       const storedArray = JSON.parse(temp);
       console.log(storedArray); 
       this.cars = storedArray
+      this.cars = this.cars.map(car => ({ ...car, isDeleted: false }));
+      console.log(this.cars)
      }
     }
-  push(i:any){
-
-  }
-  buy(i:any){
-
-  }
+ 
   remove(i:any){
     var card = document.getElementById(i)
     card?.classList.add("d-none");// = "d-none";
   }
   carForm!:FormGroup
-  // order:Order={
-  //   customerName:"",
-  //   customerNationality:"",
-  //   drivingLicense:"",
-  //   carName:"",
-  //   quantity:0,
-  //   advancedPayment:"",
-  //   rentFrom:new Date,
-  //   rentTo:new Date,
-  //   transactionDate:new Date
-  // }
+  
   car!:CarDTO
   year:any
   power:any
@@ -104,6 +92,14 @@ export class DetailcarComponent implements OnInit {
   get RentTo() {
     return this.carForm.get('RentTo');
   }
+  deleteSelectedRecords() {
+    this.cars = this.cars.filter(car => !car.isDeleted)
+    console.log(this.cars)
+  }
+  AddRecords(){
+    this.Router.navigate(["car"])
+
+  }
   
   @Input()
    Order!: any ;
@@ -114,11 +110,17 @@ export class DetailcarComponent implements OnInit {
       // Handle form submission here
       console.log(this.carForm.value); // Form data
       console.log(this.Order)
-      // console.log(this.order)
-      // this.orderService.formOrder = this.carForm.value;
+    
     }
     
     console.log(this.Order)
     // this.Router.navigate(['/detail']);
+  }
+  CarsForRent:any[]=[]
+  Pay(){
+    this.CarsForRent = this.cars.filter(car => car.quantity !== null
+       && car.rentTo !== null && car.rentFrom !== null);
+
+    console.log(this.CarsForRent)
   }
 }
