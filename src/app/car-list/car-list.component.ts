@@ -86,7 +86,7 @@ export class CarListComponent implements OnInit{
   
 
   PushSelectedRecords() {
-    this.CarDtos = this.Cars.filter(car => car.isDeleted);
+    this.CarDtos = this.Cars.filter(car => car.selected);
     console.log(this.CarDtos)
     this.carService.setData(this.CarDtos);
     localStorage.setItem("cars", JSON.stringify(this.CarDtos));

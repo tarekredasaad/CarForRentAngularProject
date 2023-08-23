@@ -7,20 +7,26 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="text-center">
+      <div class="text-center ">
         <span class="float-left pr-3">Filter </span>
-        <select name="brand" id="brand" (change)="SelectBrand()" [(ngModel)]="brandId">
-          <option value=""> --- </option>
-          <option *ngFor="let car of Carsfilter" [value]="car.model.brand.id">{{ car.model.brand.name }}</option>
-        </select>
-        <select name="name" id="name" (change)="SelectName()" [(ngModel)]="name">
-          <option value=""> --- </option>
-          <option *ngFor="let car of Carsfilter" [value]="car.model.name">{{ car.model.name }}</option>
-        </select>
-        <select name="year" id="year" (change)="SelectYear()" [(ngModel)]="year">
-          <option value=""> --- </option>
-          <option *ngFor="let car of Carsfilter" [value]="car.year">{{ car.year }}</option>
-        </select>
+          <label class="form-check-label" for="brand">Brand
+            <select name="brand" id="brand" (change)="SelectBrand()" [(ngModel)]="brandId">
+              <option value=""> --- </option>
+              <option *ngFor="let car of Carsfilter" [value]="car.model.brand.id">{{ car.model.brand.name }}</option>
+            </select>
+          </label>
+          <label class="form-check-label" for="brand">name
+            <select name="name" id="name" (change)="SelectName()" [(ngModel)]="name">
+              <option value=""> --- </option>
+              <option *ngFor="let car of Carsfilter" [value]="car.model.name">{{ car.model.name }}</option>
+            </select>
+          </label>
+          <label class="form-check-label" for="brand">year
+            <select name="year" id="year" (change)="SelectYear()" [(ngModel)]="year">
+              <option value=""> --- </option>
+              <option *ngFor="let car of Carsfilter" [value]="car.year">{{ car.year }}</option>
+            </select>
+          </label>
       </div>
 
       <div class="container">
@@ -32,7 +38,7 @@
                 <p class="card-text">{{ car.power }}</p>
                 <div class="d-flex justify-content-between">
                   <input type="checkbox" id="{{ i }}" class="float-left"
-                   [(ngModel)]="car.isDeleted" >
+                   [(ngModel)]="car.selected" >
                   <!-- <button class="btn btn-info" (click)="buy(i)">Buy</button> (click)="push(i)" -->
                 </div>
               </div>

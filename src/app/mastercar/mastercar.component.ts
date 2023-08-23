@@ -12,7 +12,7 @@ import { DetailcarComponent } from '../detailcar/detailcar.component';
 export class MastercarComponent implements OnInit{
   // @ViewChild(ChildComponent) child: ChildComponent;
 
-  @ViewChild(DetailcarComponent)child:DetailcarComponent | undefined;
+  // @ViewChild(DetailcarComponent)child:DetailcarComponent | undefined;
   myForm!: FormGroup
   // order:Order={
   //   customerName:"",
@@ -26,12 +26,14 @@ export class MastercarComponent implements OnInit{
   //   transactionDate:new Date
   // }
   bad:string="bad"
+  CarsForRent:any[]=[]
   constructor(private fb: FormBuilder,
     private Router:Router,private orderService:OrderService){}
   // detail:DetailComponent = new DetailComponent()
   ngOnInit(): void {
     // console.log(this.order)
     this.initForm();
+    this.GetCarsForRent()
     this.customerForm = this.fb.group({
       customerName: ['', [Validators.required, Validators.minLength(4)]],
        drivingLicense: ["",[ Validators.required ,Validators.minLength(3)
@@ -45,14 +47,20 @@ export class MastercarComponent implements OnInit{
     // this.createForm()
   }
   
-  GetData()
+  GetCarsForRent()
   {
+    var temp =localStorage.getItem("carsForRent")
+    if (temp) {
+      const storedArray = JSON.parse(temp);
+      console.log(storedArray); 
+      this.CarsForRent = storedArray
+    }
     //fire event to hold data
     // this.childEvent.emit(this.order);
   }
   ngAfterViewInit()
   {
-    this.child?.Order;
+    // this.child?.Order;
   }
   nationalities: string[] = [
     'USA',
@@ -95,15 +103,36 @@ export class MastercarComponent implements OnInit{
       // Other form controls can be added here
     });
   }
+  result :any
+ async onSubmit() {
+    // this.cars = this.cars.map(car => ({ ...car, selected: false }));
 
-  onSubmit() {
-    
     if (this.customerForm.valid) {
       // Handle form submission here
       console.log(this.customerForm.value); // Form data
       this.orderService.formOrder = this.customerForm.value;
-    }
+      console.log(this.CarsForRent)
+      await this.orderService.addOrder(this.customerForm.value).subscribe(response => {
+        this.result = response
+        console.log(this.result.result.id)
+        this.CarsForRent = this.CarsForRent.map(car => { car.orderId = this.result.result.id 
+          ,console.log(car.orderId)});
+          console.log(this.CarsForRent)
+          console.log('Response from server:', response)
+        },  
+        err=> {console.log(err)});
 
-    this.Router.navigate(['/detail']);
+        for(let car of this.CarsForRent){
+       setTimeout(  async ()=>{
+
+           await  this.orderService.addCars(car).subscribe(res => 
+               console.log(res))
+          },1200)
+        }
+      }
+    
   }
+
+    // this.Router.navigate(['/detail']);
+  
 }

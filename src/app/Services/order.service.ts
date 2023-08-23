@@ -12,9 +12,18 @@ export class OrderService {
   formOrder!:any
   order!:any
   apiOrder:string="https://localhost:44305/api/Order/AddOrder";
+  apiCars:string="https://localhost:44305/api/Order/addOrderCars";
 
-  addOrder(): Observable<any>{
-    return this.http.post<any[]>(`${this.apiOrder}`,this.order)
+  addOrder(form:any): Observable<any>{
+    console.log(form)
+    return this.http.post<any[]>(`${this.apiOrder}`,form)
+    .pipe(catchError((err: { message: any; }) => {
+      return throwError(() => err.message || "server error");
+    }));
+  }
+  addCars(cars:any[]): Observable<any>{
+    console.log(cars)
+    return this.http.post<any[]>(`${this.apiCars}`,cars)
     .pipe(catchError((err: { message: any; }) => {
       return throwError(() => err.message || "server error");
     }));

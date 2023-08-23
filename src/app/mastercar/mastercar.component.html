@@ -5,6 +5,35 @@
          consectetur adipiscing elit.</p>
     </div>
   </header>
+  <div class="container table-responsive">
+    <div class="car-list ">
+      <table class="table table-bordered" >
+        <thead>
+          <tr>
+            <th>Brand</th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Power</th>
+            <th>Quantity</th>
+            <th>Rent From</th>
+            <th>Rent To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of CarsForRent; let i = index">
+            <td>{{ car.model.brand.name }}</td>
+            <td>{{ car.model.name }}</td>
+            <td>{{ car.year }}</td>
+            <td>{{ car.power }}</td>
+            <td>{{ car.quantity }}</td>
+            <td>{{ car.rentFrom }}</td>
+            <td>{{ car.rentTo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
 <div class="col-md-4 col-sm-12 ">
     <div >
       <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" >
@@ -108,45 +137,10 @@ Please enter a valid advancedPayment.
           <button type="submit" [disabled]="customerForm.invalid"
            class="btn btn-primary">Rent </button>
         </form>
-        <button (click)="GetData()">Send </button>
-        <app-detail [try]="bad"></app-detail>
+        <button >Send </button>
   </div>
   </div>
-  <div class=" text-center mt-5 mb-5">
-    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-      <label for="customerName">Customer Name:</label>
-      <input
-        type="text"
-        id="customerName"
-        formControlName="customerName"
-        />
-        <!-- [class.is-invalid]="customerName?.invalid&&customerName?.touched" -->
-      <small *ngIf="customerName?.errors?.['required']" 
-      class="text-danger">Client Name is required
-    </small>
-    <small *ngIf="customerName?.errors?.['minlength']" 
-    class="text-danger">User name at least 5 characters</small>
-      <!-- <div
-        *ngIf="
-          customerForm.get('customerName').hasError('required') &&
-          customerForm.get('customerName').touched
-        "
-      >
-        Customer Name is required.
-      </div>
-      <div
-        *ngIf="
-          customerForm.get('customerName').hasError('minlength') &&
-          customerForm.get('customerName').touched
-        "
-      >
-        Customer Name must be at least 4 characters long.
-      </div> -->
-    
-      <!-- Other form controls and submit button can be added here -->
-    </form>
-    
-  </div>
+  
   <div>
     <br>
   </div>

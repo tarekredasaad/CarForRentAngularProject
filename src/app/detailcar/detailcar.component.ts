@@ -40,10 +40,7 @@ export class DetailcarComponent implements OnInit {
     this.updatePage();
   }
   getCars(){
-    this.CarServices.getData().subscribe( data => {
-      this.cars=data
-      console.log(this.cars)
-    })
+    
     
     var temp =localStorage.getItem("cars")
     // this.cars = JSON.parse() temp;
@@ -52,7 +49,7 @@ export class DetailcarComponent implements OnInit {
       const storedArray = JSON.parse(temp);
       console.log(storedArray); 
       this.cars = storedArray
-      this.cars = this.cars.map(car => ({ ...car, isDeleted: false }));
+      this.cars = this.cars.map(car => ({ ...car, selected: false }));
       console.log(this.cars)
      }
     }
@@ -93,7 +90,7 @@ export class DetailcarComponent implements OnInit {
     return this.carForm.get('RentTo');
   }
   deleteSelectedRecords() {
-    this.cars = this.cars.filter(car => !car.isDeleted)
+    this.cars = this.cars.filter(car => !car.selected)
     console.log(this.cars)
   }
   AddRecords(){
@@ -118,9 +115,15 @@ export class DetailcarComponent implements OnInit {
   }
   CarsForRent:any[]=[]
   Pay(){
-    this.CarsForRent = this.cars.filter(car => car.quantity !== null
-       && car.rentTo !== null && car.rentFrom !== null);
+    this.CarsForRent = this.cars.filter(car => car.quantity !== undefined
+       && car.rentTo !== undefined && car.rentFrom !== undefined);
 
     console.log(this.CarsForRent)
+    console.log(this.cars.filter(car => car.quantity != undefined
+      && car.rentTo != undefined && car.rentFrom != undefined))
+      localStorage.setItem("carsForRent", JSON.stringify(this.CarsForRent));
+      this.Router.navigate(["master"])
+
+
   }
 }
