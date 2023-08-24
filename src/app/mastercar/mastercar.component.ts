@@ -121,11 +121,11 @@ export class MastercarComponent implements OnInit{
           console.log('Response from server:', response)
         },  
         err=> {console.log(err)});
-
+        
         for(let car of this.CarsForRent){
        setTimeout(  async ()=>{
 
-           await  this.orderService.addCars(car).subscribe(res => 
+             this.orderService.addCars(car).subscribe(res => 
                console.log(res))
           },1200)
         }

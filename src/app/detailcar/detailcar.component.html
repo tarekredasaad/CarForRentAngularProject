@@ -5,40 +5,10 @@
   </div>
 </header>
 
+<!--  -->
 <div class="container">
   <div class="row">
     <div *ngFor="let car of cars; let i = index" class="col-md-6">
-      <div class="card mt-3">
-        <div class="card-body">
-          <h5 class="card-title">{{ car.type }}</h5>
-          <p class="card-text">Year: {{ car.year }}</p>
-          <p class="card-text">Power: {{ car.power }}</p>
-          <p class="card-text">Brand: {{ car.model.brand.name }}</p>
-        
-          
-        </div>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="selected{{ i }}" 
-            [(ngModel)]="car.selected">
-            <label class="form-check-label" for="selected{{ i }}">Selected</label>
-          </div>
-          
-          <button class="btn btn-danger mt-2" (click)="remove(i)">Remove</button>
-      </div>
-    </div>
-    <div class="d-block">
-
-      <button class=" btn btn-danger block-lg float-right"
-       (click)="deleteSelectedRecords()">Delete</button>
-      <button class=" btn btn-primary block-lg float-left"
-       (click)="AddRecords()">Add</button>
-    </div>
-
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div *ngFor="let car of pagedCars; let i = index" class="col-md-6">
       <div class="card mt-3">
         <div class="card-body">
           <h5 class="card-title">{{ car.type }}</h5>
@@ -78,6 +48,13 @@
       </div>
     </div>
     <div class="text-center mt-3">
+       <div class="d-block">
+
+      <button class=" btn btn-danger block-lg float-right"
+       (click)="deleteSelectedRecords()">Delete</button>
+      <button class=" btn btn-primary block-lg float-left"
+       (click)="AddRecords()">Add</button>
+    </div>
       <button class=" btn btn-primary block-lg float-left"
        (click)="Pay()">pay</button>
       <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
